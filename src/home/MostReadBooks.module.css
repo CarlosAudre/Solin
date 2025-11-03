@@ -1,0 +1,147 @@
+.container {
+  background: white;
+  display: flex;
+  flex-direction: column;
+  border-radius: 1rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  border: 1px solid rgba(0,0,0,0.05);
+  padding: 2rem;
+  margin: 3rem auto; 
+  width: 80%;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.iconBox {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.75rem;
+  background: linear-gradient(135deg, #6B1830, #A13C55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.trendingIcon {
+  font-size: 1.25rem;
+  color: white;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #1F1F1F;
+}
+
+.bookList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.bookCard {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  transition: background-color 0.2s ease;
+}
+
+.bookCard:hover {
+  background-color: #F5F1E8;
+}
+
+.rankBadge {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.5rem;
+  background: #f3f3f3;
+  color: #555;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.rankBadgeTop {
+  background: linear-gradient(135deg, #6B1830, #A13C55);
+  color: white;
+  box-shadow: 0 0 10px rgba(107, 24, 48, 0.3);
+}
+
+.coverBox {
+  flex-shrink: 0;
+  width: 4rem;
+  height: 6rem;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+}
+
+.coverBox img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.bookInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.bookInfo h3 {
+  font-weight: 600;
+  color: #222;
+  margin: 0;
+}
+
+.bookInfo p {
+  color: #666;
+  font-size: 0.9rem;
+  margin: 0.2rem 0;
+}
+
+.tags {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.3rem;
+}
+
+.genre {
+  font-size: 0.75rem;
+  padding: 0.2rem 0.5rem;
+  background: #f2f2f2;
+  border-radius: 0.25rem;
+  color: #555;
+}
+
+.favorite {
+  font-size: 0.75rem;
+  padding: 0.2rem 0.5rem;
+  background: #ffe6e6;
+  color: #b21a1a;
+  border-radius: 0.25rem;
+}
+
+.readerCount {
+  text-align: right;
+}
+
+.readersNumber {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #6B1830;
+  margin: 0;
+}
+
+.readersText {
+  font-size: 0.75rem;
+  color: #777;
+  margin: 0;
+}

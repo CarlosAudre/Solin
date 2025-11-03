@@ -1,0 +1,129 @@
+.footer {
+  background-color: #fff;
+  border-top: 1px solid #e5e5e5;
+  color: #333;
+  font-family: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  padding: 48px 80px 24px;
+  font-size: 13px;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+/* ---------- Colunas ---------- */
+.col {
+  flex: 1;
+  min-width: 240px;
+}
+
+.title {
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #111;
+}
+
+.desc {
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.5;
+  margin-top: 8px;
+  margin-bottom: 16px;
+}
+
+.made {
+  color: #6c1322;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ---------- Logo ---------- */
+.logoContainer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logoIcon {
+  background-color: #6c1322;
+  color: white;
+  padding: 8px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bookIcon {
+  width: 20px;
+  height: 20px;
+}
+
+.logoText {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #6c1322;
+}
+
+/* ---------- Links ---------- */
+.links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.links li {
+  margin-bottom: 8px;
+}
+
+.links a {
+  color: #1a1a1a;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.links a:hover {
+  color: #6c1322;
+}
+
+/* ---------- Contato ---------- */
+.text {
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+.email {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #6c1322;
+  font-weight: 500;
+}
+
+.mailIcon {
+  color: #6c1322;
+}
+
+/* ---------- Linha inferior ---------- */
+.bottom {
+  border-top: 1px solid #e5e5e5;
+  margin-top: 32px;
+  padding-top: 16px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.heart {
+  color: #6c1322;
+}

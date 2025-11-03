@@ -1,0 +1,168 @@
+.container {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 1.5rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    padding: 2rem;
+    margin: 3rem auto;
+    width: 80%;
+}
+
+/* Header */
+.header {
+    margin-bottom: 1.5rem;
+}
+
+.title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 0.25rem;
+}
+
+.subtitle {
+    color: #555;
+}
+
+/* Genre buttons */
+.genreContainer {
+    margin-bottom: 2rem;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+}
+
+.genreList {
+    display: flex;
+    gap: 0.5rem;
+    min-width: max-content;
+}
+
+.genreButton {
+    padding: 0.6rem 1.5rem;
+    font-weight: 500;
+    font-size: 0.9rem;
+    border-radius: 0.75rem;
+    background: #f3f4f6;
+    color: #374151;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.genreButton:hover {
+    background: #e5e7eb;
+}
+
+.activeGenre {
+    background: #8b1e3f;
+    color: white;
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(139, 30, 63, 0.25);
+}
+
+/* Carousel */
+.carouselWrapper {
+    position: relative;
+}
+
+.loading {
+    text-align: center;
+    padding: 5rem 0;
+    color: #555;
+}
+
+.loaderIcon {
+    width: 3rem;
+    height: 3rem;
+    margin-bottom: 1rem;
+    color: #8b1e3f;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.carousel {
+    position: relative;
+}
+
+.scrollButton {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #8b1e3f;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.carousel:hover .scrollButton {
+    opacity: 1;
+}
+
+.leftButton {
+    left: -1rem;
+}
+
+.rightButton {
+    right: -1rem;
+}
+
+/* Books Row */
+.booksRow {
+    display: flex;
+    gap: 1.5rem;
+    overflow-x: auto;
+    padding-bottom: 1rem;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.booksRow::-webkit-scrollbar {
+    display: none;
+}
+
+.bookWrapper {
+    flex: none;
+    width: 12rem;
+}
+
+.bookCount {
+    margin-top: 1rem;
+    text-align: center;
+    color: #6b7280;
+    font-size: 0.9rem;
+}
+
+/* Empty State */
+.empty {
+    text-align: center;
+    padding: 5rem 0;
+    color: #555;
+}
+
+.emptyIcon {
+    background: #f3f4f6;
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    margin: 0 auto 1rem auto;
+}

@@ -1,0 +1,87 @@
+.topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 32px;
+    background-color: #fff;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+    height: 50px;
+    font-size: 15px;
+}
+
+/* ---------- Logo ---------- */
+.logoContainer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.logoIcon {
+    background-color: #6c1322;
+    color: white;
+    padding: 8px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bookIcon {
+    width: 20px;
+    height: 20px;
+}
+
+.logoText {
+    font-size: 20px;
+    font-weight: bold; 
+    color: #6c1322;
+}
+
+/* ---------- Links ---------- */
+.navLinks {
+    display: flex;
+    gap: 28px;
+}
+
+.link {
+    text-decoration: none;
+    color: #4a4a4a;
+    font-weight: 500;
+    transition: color 0.2s ease, border-color 0.2s ease;
+    padding-bottom: 2px;
+    border-bottom: 2px solid transparent;
+}
+
+.link:hover {
+    color: #6c1322;
+}
+
+.active {
+    color: #6c1322;
+    border-bottom-color: #6c1322;
+}
+
+/* ---------- Usuário ---------- */
+.userSection {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #4a4a4a;
+    margin-right: 40px;
+}
+
+.username {
+    font-size: 0.95rem;
+}
+
+.logoutBtn {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: #6c6c6c;
+    transition: color 0.2s ease;
+}
+
+.logoutBtn:hover {
+    color: #6c1322;
+}

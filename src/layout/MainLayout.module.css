@@ -1,0 +1,9 @@
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* ocupa a tela toda */
+}
+
+.content {
+  flex: 1; /* ocupa todo o espaço disponível entre Topbar e Footer */
+}
