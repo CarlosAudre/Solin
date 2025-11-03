@@ -1,88 +1,106 @@
+/* HERO SECTION */
 .hero {
-  position: relative;
-  height: 70vh;
-  display: flex;
-  align-items: center;
-  color: white;
-  overflow: hidden;
+    margin-top: 30px;
+    position: relative;
+    height: 70vh;
+    display: flex;
+    align-items: center;
+    /* centraliza verticalmente */
+    justify-content: center;
+    color: white;
+    height: 460px;
+    overflow: hidden;
+
 }
 
 .background {
-  position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: center;
-  z-index: 0;
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
 }
 
 .overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to right, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.7), transparent);
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right,
+            rgba(0, 0, 0, 0.8),
+            rgba(0, 0, 0, 0.5),
+            transparent);
 }
 
 .content {
-  position: relative;
-  z-index: 1;
-  max-width: 700px;
-  margin-left: 80px;
+    position: relative;
+    z-index: 1;
+    max-width: 700px;
+    padding: 0 1.5rem;
 }
 
 .featureTag {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 14px;
-  background: rgba(255, 255, 255, 0.1);
-  padding: 6px 14px;
-  border-radius: 20px;
-  backdrop-filter: blur(4px);
-  margin-bottom: 16px;
+    display: inline-flex;
+    gap: 6px;
+    font-size: 14px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 6px 14px;
+    border-radius: 20px;
+    backdrop-filter: blur(4px);
+    margin-bottom: 16px;
 }
 
 .sparkleIcon {
-  color: #6b1830;
+    color: #6b1830;
 }
 
 .title {
-  font-size: 3rem;
-  font-weight: 700;
-  margin-bottom: 10px;
-  line-height: 1.1;
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    line-height: 1.1;
 }
 
 .author {
-  font-size: 1.2rem;
-  opacity: 0.85;
-  margin-bottom: 16px;
+    font-size: 1.2rem;
+    opacity: 0.85;
+    margin-bottom: 16px;
 }
 
 .description {
-  font-size: 1rem;
-  opacity: 0.8;
-  line-clamp: 3;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  display: -webkit-box;
-  max-width: 550px;
-  margin-bottom: 24px;
+    font-size: 1rem;
+    opacity: 0.8;
+    line-clamp: 3;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    display: -webkit-box;
+    margin-bottom: 24px;
 }
 
 .button {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: linear-gradient(90deg, #6b1830, #a22a4d);
-  color: white;
-  padding: 12px 24px;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: 500;
-  transition: opacity 0.2s ease-in-out;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(90deg, #6b1830, #a22a4d);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: opacity 0.2s ease-in-out;
 }
 
 .button:hover {
-  opacity: 0.9;
+    opacity: 0.9;
 }
 
+/* CONTEÚDO PRINCIPAL */
+.mainContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem;
+    gap: 3rem;
+}

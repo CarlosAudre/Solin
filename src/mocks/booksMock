@@ -1,0 +1,42 @@
+export const booksMock = [
+  {
+    id: 1,
+    title: "The Silent Patient",
+    author: "Alex Michaelides",
+    genre: "Thriller",
+    cover_url:
+      "https://images-na.ssl-images-amazon.com/images/I/81n0E2xg8NL.jpg",
+  },
+  {
+    id: 2,
+    title: "The Midnight Library",
+    author: "Matt Haig",
+    genre: "Fiction",
+    cover_url:
+      "https://images-na.ssl-images-amazon.com/images/I/81k7gKTDLtL.jpg",
+  },
+  {
+    id: 3,
+    title: "Where the Crawdads Sing",
+    author: "Delia Owens",
+    genre: "Fiction",
+    cover_url:
+      "https://images-na.ssl-images-amazon.com/images/I/91W8b%2B4p%2BFL.jpg",
+  },
+  {
+    id: 4,
+    title: "Project Hail Mary",
+    author: "Andy Weir",
+    genre: "Science Fiction",
+    cover_url:
+      "https://images-na.ssl-images-amazon.com/images/I/91t2xE2QqDL.jpg",
+  },
+  {
+    id: 5,
+    title: "The Name of the Wind",
+    author: "Patrick Rothfuss",
+    genre: "Fantasy",
+    cover_url:
+      "https://images-na.ssl-images-amazon.com/images/I/81F9R5yD8yL.jpg",
+  },
+];
