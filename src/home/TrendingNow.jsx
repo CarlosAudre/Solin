@@ -1,6 +1,7 @@
 import { Flame } from "lucide-react";
 import styles from "./TrendingNow.module.css";
 import BookCard from "../books/BookCard";
+import { Link } from "react-router-dom";
 
 function TrendingNow({ books = [], userBooks = [] }) {
     // Exemplo simples: pega os 6 primeiros livros da lista

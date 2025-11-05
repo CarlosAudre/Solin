@@ -1,10 +1,12 @@
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import styles from "./MostReadBooks.module.css";
 
 function MostReadBooks({ books = [], userBooks = [] }) {
     if (!books.length) return null;
 
-    const bookStats = books.map(book => {
-        const interactions = userBooks.filter(ub => ub.book_id === book.id).length;
+    const bookStats = books.map((book) => {
+        const interactions = userBooks.filter((ub) => ub.book_id === book.id).length;
         return { ...book, interactions };
     });
 
@@ -14,49 +16,81 @@ function MostReadBooks({ books = [], userBooks = [] }) {
 
     if (topBooks.length === 0) return null;
 
+    const getPositionColor = (pos) => {
+        if (pos === 1) return styles.rank1;
+        if (pos === 2) return styles.rank2;
+        if (pos === 3) return styles.rank3;
+        return styles.rankDefault;
+    };
+
     return (
         <div className={styles.container}>
-            <div className={styles.header}>
-                <div className={styles.iconBox}>
-                    <span className={styles.trendingIcon}>📈</span>
+            {/* Gradientes decorativos */}
+            <div className={styles.gradientTopRight}></div>
+            <div className={styles.gradientBottomLeft}></div>
+
+            <div className={styles.inner}>
+                {/* Header */}
+                <div className={styles.header}>
+                    <div className={styles.iconBox}>
+                        <span className={styles.trendingIcon}>📈</span>
+                        <span className={styles.crownBadge}>👑</span>
+                    </div>
+                    <div>
+                        <h2 className={styles.title}>Most Read Books</h2>
+                        <p className={styles.subtitle}>Our readers' top picks</p>
+                    </div>
                 </div>
-                <h2 className={styles.title}>Top 5 Most Read Books</h2>
-            </div>
 
-            <div className={styles.bookList}>
-                {topBooks.map((book, index) => {
-                    const userBook = userBooks.find(ub => ub.book_id === book.id);
-                    return (
-                        <div key={book.id} className={styles.bookCard}>
-                            <div
-                                className={`${styles.rankBadge} ${index === 0 ? styles.rankBadgeTop : ""
-                                    }`}
+                {/* Lista de livros */}
+                <div className={styles.bookGrid}>
+                    {topBooks.map((book, index) => {
+                        const position = index + 1;
+                        return (
+                            <motion.div
+                                key={book.id}                           
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: index * 0.1 }}
+                                className={styles.bookCard}
                             >
-                                {index === 0 ? "👑" : index + 1}
-                            </div>
+                                <Link to={`/books/${book.id}`} className={styles.bookLink}>
+                                    {/* Medalha de posição */}
+                                    <div className={`${styles.rankBadge} ${getPositionColor(position)}`}>
+                                        {position}
+                                    </div>
 
-                            <div className={styles.coverBox}>
-                                <img src={book.cover_url} alt={book.title} />
-                            </div>
+                                    {/* Coroa no primeiro */}
+                                    {position === 1 && <div className={styles.crownIcon}>👑</div>}
 
-                            <div className={styles.bookInfo}>
-                                <h3>{book.title}</h3>
-                                <p>{book.author}</p>
-                                <div className={styles.tags}>
-                                    <span className={styles.genre}>{book.genre}</span>
-                                    {userBook?.is_favorite && (
-                                        <span className={styles.favorite}>❤️ Favorite</span>
-                                    )}
-                                </div>
-                            </div>
+                                    {/* Capa */}
+                                    <div className={styles.coverBox}>
+                                        <img
+                                            src={
+                                                book.cover_url ||
+                                                `https://source.unsplash.com/400x600/?book,${book.genre}`
+                                            }
+                                            alt={book.title}
+                                        />
+                                    </div>
 
-                            <div className={styles.readerCount}>
-                                <p className={styles.readersNumber}>{book.interactions}</p>
-                                <p className={styles.readersText}>readers</p>
-                            </div>
-                        </div>
-                    );
-                })}
+                                    {/* Info */}
+                                    <div className={styles.bookInfo}>
+                                        <h3>{book.title}</h3>
+                                        <p>{book.author}</p>
+                                        <div className={styles.tags}>
+                                            <span className={styles.genre}>{book.genre}</span>
+                                        </div>
+                                    </div>
+                                </Link>
+                            </motion.div>
+                        );
+                    })}
+                </div>
+
+                <div className={styles.footer}>
+                    <p>Based on reader activity and engagement</p>
+                </div>
             </div>
         </div>
     );

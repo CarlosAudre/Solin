@@ -1,0 +1,135 @@
+.container {
+  background: white;
+  border: 1px solid rgba(229, 231, 235, 0.5);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 1.5rem;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  color: #6b1830;
+}
+
+.title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.form {
+  margin-bottom: 2rem;
+}
+
+.textarea {
+  width: 100%;
+  min-height: 100px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 0.75rem;
+  font-size: 1rem;
+  color: #111827;
+  resize: none;
+  transition: border 0.2s ease;
+}
+
+.textarea:focus {
+  outline: none;
+  border-color: #6b1830;
+  box-shadow: 0 0 0 1px #6b1830;
+}
+
+.buttonWrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 0.75rem;
+}
+
+.postButton {
+  background: #6b1830;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.postButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.postButton:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.sendIcon {
+  width: 16px;
+  height: 16px;
+}
+
+.commentList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.comment {
+  display: flex;
+  gap: 12px;
+  border-left: 2px solid #6b1830;
+  padding-left: 12px;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  background: #6b1830;
+  color: white;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.username {
+  font-weight: 500;
+  color: #111827;
+}
+
+.date {
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+.content {
+  color: #374151;
+  margin-top: 4px;
+}
+
+.emptyState {
+  text-align: center;
+  color: #6b7280;
+  padding: 2rem 0;
+}
+
+.emptyIcon {
+  width: 48px;
+  height: 48px;
+  color: #d1d5db;
+  margin: 0 auto 0.75rem;
+}

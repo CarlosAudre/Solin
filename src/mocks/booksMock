@@ -4,39 +4,72 @@ export const booksMock = [
     title: "The Silent Patient",
     author: "Alex Michaelides",
     genre: "Thriller",
-    cover_url:
-      "https://images-na.ssl-images-amazon.com/images/I/81n0E2xg8NL.jpg",
+    publication_year: 2019,
+    pages: 336,
+    publisher: "Celadon Books",
+    description:
+      "Alicia Berenson’s life is seemingly perfect. A famous painter married to an in-demand fashion photographer, she lives in a grand house with big windows overlooking a park in one of London’s most desirable areas. One evening, her husband Gabriel returns home late from a fashion shoot, and Alicia shoots him five times in the face, then never speaks another word.",
+    cover_url: "https://m.media-amazon.com/images/I/91lslnZ-btL._SY425_.jpg",
   },
   {
     id: 2,
     title: "The Midnight Library",
     author: "Matt Haig",
     genre: "Fiction",
-    cover_url:
-      "https://images-na.ssl-images-amazon.com/images/I/81k7gKTDLtL.jpg",
+    publication_year: 2020,
+    pages: 304,
+    publisher: "Canongate Books",
+    description:
+      "Between life and death there is a library. Nora Seed finds herself faced with the possibility of changing her life for a new one. But as she travels through the Midnight Library, she must decide what makes life worth living in the first place.",
+    cover_url: "https://m.media-amazon.com/images/I/71AYz--TG9L._SY425_.jpg",
   },
   {
     id: 3,
     title: "Where the Crawdads Sing",
     author: "Delia Owens",
     genre: "Fiction",
-    cover_url:
-      "https://images-na.ssl-images-amazon.com/images/I/91W8b%2B4p%2BFL.jpg",
+    publication_year: 2018,
+    pages: 384,
+    publisher: "G.P. Putnam’s Sons",
+    description:
+      "Kya Clark, the 'Marsh Girl', has survived for years alone in the marshes of North Carolina. When a local man is found dead, Kya becomes the main suspect. This moving mystery blends nature writing, romance, and suspense.",
+    cover_url: "https://m.media-amazon.com/images/I/81F0NTrPdCL._SY425_.jpg",
   },
   {
     id: 4,
     title: "Project Hail Mary",
     author: "Andy Weir",
     genre: "Science Fiction",
-    cover_url:
-      "https://images-na.ssl-images-amazon.com/images/I/91t2xE2QqDL.jpg",
+    publication_year: 2021,
+    pages: 496,
+    publisher: "Ballantine Books",
+    description:
+      "Ryland Grace is the sole survivor on a desperate mission—and if he fails, humanity and the Earth itself will perish. But when he wakes up alone on a spaceship, he doesn’t remember who he is or how he got there.",
+    cover_url: "https://m.media-amazon.com/images/I/51l-5bsaTlL._SY445_SX342_.jpg",
   },
   {
     id: 5,
     title: "The Name of the Wind",
     author: "Patrick Rothfuss",
     genre: "Fantasy",
+    publication_year: 2007,
+    pages: 662,
+    publisher: "DAW Books",
+    description:
+      "Told in Kvothe’s own voice, this is the tale of the magically gifted young man who grows to be the most legendary figure his world has ever known. A modern classic of fantasy literature.",
+    cover_url: "https://m.media-amazon.com/images/I/51FTWmg+WQL._SY445_.jpg",
+  },
+  {
+    id: 6,
+    title: "Mistborn: O Império Final",
+    author: "Brandon Sanderson",
+    genre: "Fantasy",
+    publication_year: 2006,
+    pages: 541,
+    publisher: "Tor Books",
+    description:
+      "Durante mil anos, um homem conhecido como o Lorde Soberano reina absoluto. As brumas cobrem o mundo e a sociedade está dividida entre nobres e escravos. Até que uma jovem ladra descobre que possui poderes alomânticos e pode mudar tudo.",
     cover_url:
-      "https://images-na.ssl-images-amazon.com/images/I/81F9R5yD8yL.jpg",
+      "https://m.media-amazon.com/images/I/51G0zeHL2FL._SY445_SX342_.jpg",
   },
 ];
