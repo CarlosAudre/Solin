@@ -9,6 +9,7 @@ import CommentSection from "../books/CommentSection";
 // import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 // import api from "../../services/api";
 
+
 function BookDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
