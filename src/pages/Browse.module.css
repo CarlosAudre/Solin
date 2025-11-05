@@ -1,10 +1,11 @@
 .page {
     min-height: 100vh;
     background: #f5f1e8;
+    padding-top: 60px;
 }
 
 .header {
-    background: linear-gradient(135deg, #6b1830, #8b1c3e);
+    background: linear-gradient(180deg, #4a0f22 0%, #440e1e 100%);
     color: white;
     padding: 5rem 0;
     text-align: left;
