@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import styles from "./Profile.module.css";
 import { Heart, BookOpen, Calendar, BookMarked } from "lucide-react";
-import { booksMock } from "../mocks/booksMock"; 
+import { booksMock } from "../mocks/booksMock";
+import { useNavigate } from "react-router-dom"; // 👈 importa o hook de navegação
 
 export default function Profile() {
+  const navigate = useNavigate(); // 👈 cria o objeto de navegação
+
   const user = {
     name: "carlosaudre180",
     email: "carlosaudre180@gmail.com",
@@ -34,6 +37,11 @@ export default function Profile() {
   const planToRead = mergeBooks((ub) => ub.status === "plan_to_read");
   const completed = mergeBooks((ub) => ub.status === "completed");
 
+  // 🔹 Abre a página de detalhes do livro
+  const handleBookClick = (bookId) => {
+    navigate(`/books/${bookId}`); // 👈 muda para a rota desejada
+  };
+
   const renderBooks = (list, icon, emptyTitle, emptyText) => {
     if (list.length === 0) {
       const Icon = icon;
@@ -49,8 +57,16 @@ export default function Profile() {
     return (
       <div className={styles.booksGrid}>
         {list.map((book) => (
-          <div key={book.id} className={styles.bookCard}>
-            <img src={book.cover_url} alt={book.title} className={styles.bookCover} />
+          <div
+            key={book.id}
+            className={styles.bookCard}
+            onClick={() => handleBookClick(book.id)}
+          >
+            <img
+              src={book.cover_url}
+              alt={book.title}
+              className={styles.bookCover}
+            />
             <div className={styles.bookInfo}>
               <h4 className={styles.bookTitle}>{book.title}</h4>
               <p className={styles.bookAuthor}>{book.author}</p>
