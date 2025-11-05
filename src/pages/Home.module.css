@@ -5,14 +5,10 @@
     height: 70vh;
     display: flex;
     align-items: center;
-    /* centraliza verticalmente */
-    justify-content: center;
     color: white;
     height: 460px;
     overflow: hidden;
-
 }
-
 .background {
     position: absolute;
     inset: 0;
@@ -20,7 +16,6 @@
     background-position: center;
     z-index: 0;
 }
-
 .overlay {
     position: absolute;
     inset: 0;
@@ -29,14 +24,14 @@
             rgba(0, 0, 0, 0.5),
             transparent);
 }
-
 .content {
     position: relative;
     z-index: 1;
-    max-width: 700px;
-    padding: 0 1.5rem;
+    max-width: 1040px;
+    width: 80%;
+    margin: 0 auto;
+    padding: 0 2rem;
 }
-
 .featureTag {
     display: inline-flex;
     gap: 6px;
@@ -47,24 +42,20 @@
     backdrop-filter: blur(4px);
     margin-bottom: 16px;
 }
-
 .sparkleIcon {
     color: #6b1830;
 }
-
 .title {
     font-size: 3rem;
     font-weight: 700;
     margin-bottom: 10px;
     line-height: 1.1;
 }
-
 .author {
     font-size: 1.2rem;
     opacity: 0.85;
     margin-bottom: 16px;
 }
-
 .description {
     font-size: 1rem;
     opacity: 0.8;
@@ -75,7 +66,6 @@
     display: -webkit-box;
     margin-bottom: 24px;
 }
-
 .button {
     display: inline-flex;
     align-items: center;
@@ -88,11 +78,9 @@
     font-weight: 500;
     transition: opacity 0.2s ease-in-out;
 }
-
 .button:hover {
     opacity: 0.9;
 }
-
 /* CONTEÚDO PRINCIPAL */
 .mainContent {
     display: flex;

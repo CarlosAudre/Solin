@@ -58,18 +58,5 @@ export const booksMock = [
     description:
       "Told in Kvothe’s own voice, this is the tale of the magically gifted young man who grows to be the most legendary figure his world has ever known. A modern classic of fantasy literature.",
     cover_url: "https://m.media-amazon.com/images/I/51FTWmg+WQL._SY445_.jpg",
-  },
-  {
-    id: 6,
-    title: "Mistborn: O Império Final",
-    author: "Brandon Sanderson",
-    genre: "Fantasy",
-    publication_year: 2006,
-    pages: 541,
-    publisher: "Tor Books",
-    description:
-      "Durante mil anos, um homem conhecido como o Lorde Soberano reina absoluto. As brumas cobrem o mundo e a sociedade está dividida entre nobres e escravos. Até que uma jovem ladra descobre que possui poderes alomânticos e pode mudar tudo.",
-    cover_url:
-      "https://m.media-amazon.com/images/I/51G0zeHL2FL._SY445_SX342_.jpg",
-  },
+  }
 ];

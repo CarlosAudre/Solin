@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { TrendingUp, Crown, Eye } from "lucide-react";
 import styles from "./MostReadBooks.module.css";
 
 function MostReadBooks({ books = [], userBooks = [] }) {
@@ -32,64 +33,96 @@ function MostReadBooks({ books = [], userBooks = [] }) {
             <div className={styles.inner}>
                 {/* Header */}
                 <div className={styles.header}>
-                    <div className={styles.iconBox}>
-                        <span className={styles.trendingIcon}>📈</span>
-                        <span className={styles.crownBadge}>👑</span>
+                    <div className={styles.headerBackground}>
+                        <div className={styles.gradientOrb1}></div>
+                        <div className={styles.gradientOrb2}></div>
                     </div>
-                    <div>
-                        <h2 className={styles.title}>Most Read Books</h2>
-                        <p className={styles.subtitle}>Our readers' top picks</p>
+                    <div className={styles.headerContent}>
+                        <div className={styles.iconWrapper}>
+                            <div className={styles.iconGlow}></div>
+                            <TrendingUp size={28} className={styles.trendingIcon} strokeWidth={2.5} />
+                        </div>
+                        <div className={styles.titleWrapper}>
+                            <h2 className={styles.title}>
+                                Most Read Books
+                                <span className={styles.titleAccent}>This Week</span>
+                            </h2>
+                            <p className={styles.subtitle}>Discover what the community is reading right now</p>
+                        </div>
+                    </div>
+                    <div className={styles.rankBadgeHeader}>
+                        <span className={styles.rankLabel}>TOP</span>
+                        <span className={styles.rankNumber}>5</span>
                     </div>
                 </div>
 
-                {/* Lista de livros */}
+                {/* Grid de livros */}
                 <div className={styles.bookGrid}>
                     {topBooks.map((book, index) => {
                         const position = index + 1;
+                        const imageUrl =
+                            book.cover_url || `https://source.unsplash.com/400x600/?book,${book.genre}`;
+
                         return (
                             <motion.div
-                                key={book.id}                           
+                                key={book.id}
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: index * 0.1 }}
-                                className={styles.bookCard}
+                                whileHover={{ y: -12, scale: 1.02 }}
+                                className={styles.bookCardWrapper}
                             >
                                 <Link to={`/books/${book.id}`} className={styles.bookLink}>
                                     {/* Medalha de posição */}
-                                    <div className={`${styles.rankBadge} ${getPositionColor(position)}`}>
-                                        {position}
+                                    <div className={`${styles.positionBadge} ${getPositionColor(position)}`}>
+                                        {position === 1 ? <Crown size={18} /> : position}
                                     </div>
 
-                                    {/* Coroa no primeiro */}
-                                    {position === 1 && <div className={styles.crownIcon}>👑</div>}
+                                    {/* Card do livro */}
+                                    <div className={styles.coverContainer}>
+                                        {/* Book spine */}
+                                        <div className={styles.spine} />
 
-                                    {/* Capa */}
-                                    <div className={styles.coverBox}>
-                                        <img
-                                            src={
-                                                book.cover_url ||
-                                                `https://source.unsplash.com/400x600/?book,${book.genre}`
-                                            }
-                                            alt={book.title}
-                                        />
-                                    </div>
-
-                                    {/* Info */}
-                                    <div className={styles.bookInfo}>
-                                        <h3>{book.title}</h3>
-                                        <p>{book.author}</p>
-                                        <div className={styles.tags}>
-                                            <span className={styles.genre}>{book.genre}</span>
+                                        {/* Cover image */}
+                                        <div className={styles.imageWrapper}>
+                                            <img
+                                                src={imageUrl}
+                                                alt={book.title}
+                                                className={styles.coverImage}
+                                            />
+                                            <div className={styles.shine} />
                                         </div>
+
+                                        {/* Hover overlay */}
+                                        <div className={styles.overlay}>
+                                            <div className={styles.overlayContent}>
+                                                <div className={styles.viewButton}>
+                                                    <Eye size={18} />
+                                                    <span>View Details</span>
+                                                </div>
+                                                {book.description && (
+                                                    <p className={styles.description}>
+                                                        {book.description.length > 100
+                                                            ? `${book.description.substring(0, 100)}...`
+                                                            : book.description}
+                                                    </p>
+                                                )}
+                                            </div>
+                                        </div>
+
+                                        {/* Bottom shadow */}
+                                        <div className={styles.bottomShadow} />
+                                    </div>
+
+                                    {/* Book info */}
+                                    <div className={styles.bookInfo}>
+                                        <h3 className={styles.bookTitle}>{book.title}</h3>
+                                        <p className={styles.bookAuthor}>{book.author}</p>
                                     </div>
                                 </Link>
                             </motion.div>
                         );
                     })}
-                </div>
-
-                <div className={styles.footer}>
-                    <p>Based on reader activity and engagement</p>
                 </div>
             </div>
         </div>
