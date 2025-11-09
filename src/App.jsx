@@ -4,10 +4,12 @@ import MainLayout from "./layout/MainLayout";
 import Browse from "./pages/Browse";
 import Profile from "./pages/Profile";
 import BookDetail from "./pages/BookDetail";
+import ScrollToTop from "./utils/ScrollToTop";
 
 function App() {
   return (
     <Router>
+      <ScrollToTop/>
       <Routes>
         <Route element={<MainLayout usuario="user"/>}>
           <Route path="/" element={<Home />} />

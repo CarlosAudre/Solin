@@ -3,6 +3,7 @@
   background-color: #f8f4eb;
   display: flex;
   flex-direction: column;
+  padding-top: 60px;
 }
 
 /* HEADER */
