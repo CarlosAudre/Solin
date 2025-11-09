@@ -1,18 +1,23 @@
 import React, { useState } from "react";
 import styles from "./Profile.module.css";
-import { Heart, BookOpen, Calendar, BookMarked } from "lucide-react";
+import { Heart, BookOpen, Calendar, BookMarked, Edit2, X } from "lucide-react";
 import { booksMock } from "../mocks/booksMock";
-import { useNavigate } from "react-router-dom"; // 👈 importa o hook de navegação
+import { useNavigate } from "react-router-dom";
 
 export default function Profile() {
-  const navigate = useNavigate(); // 👈 cria o objeto de navegação
+  const navigate = useNavigate();
 
-  const user = {
+  const [user, setUser] = useState({
     name: "carlosaudre180",
     email: "carlosaudre180@gmail.com",
-  };
+    avatar: null, // imagem personalizada
+  });
 
-  // 🔹 Simula o status de leitura de alguns livros
+  const [activeTab, setActiveTab] = useState("completed");
+  const [isEditing, setIsEditing] = useState(false);
+  const [tempName, setTempName] = useState(user.name);
+  const [tempAvatar, setTempAvatar] = useState(user.avatar);
+
   const userBooks = [
     { book_id: 1, status: "completed", is_favorite: true },
     { book_id: 2, status: "currently_reading", is_favorite: false },
@@ -20,9 +25,6 @@ export default function Profile() {
     { book_id: 4, status: "favorites", is_favorite: true },
   ];
 
-  const [activeTab, setActiveTab] = useState("completed");
-
-  // 🔹 Junta os dados do usuário com os livros do mock
   const mergeBooks = (filterFn) =>
     userBooks
       .filter(filterFn)
@@ -33,13 +35,28 @@ export default function Profile() {
       .filter((b) => b.id);
 
   const favoriteBooks = mergeBooks((ub) => ub.is_favorite);
-  const currentlyReading = mergeBooks((ub) => ub.status === "currently_reading");
+  const currentlyReading = mergeBooks(
+    (ub) => ub.status === "currently_reading"
+  );
   const planToRead = mergeBooks((ub) => ub.status === "plan_to_read");
   const completed = mergeBooks((ub) => ub.status === "completed");
 
-  // 🔹 Abre a página de detalhes do livro
   const handleBookClick = (bookId) => {
-    navigate(`/books/${bookId}`); // 👈 muda para a rota desejada
+    navigate(`/books/${bookId}`);
+  };
+
+  const handleAvatarChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => setTempAvatar(reader.result);
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleSave = () => {//Salva edição do user | Trocar por um put
+    setUser({ ...user, name: tempName, avatar: tempAvatar });
+    setIsEditing(false);
   };
 
   const renderBooks = (list, icon, emptyTitle, emptyText) => {
@@ -82,15 +99,29 @@ export default function Profile() {
       {/* HEADER */}
       <div className={styles.header}>
         <div className={styles.headerContent}>
-          <div className={styles.avatar}>
-            <span>{user.name.charAt(0).toUpperCase()}</span>
+          <div className={styles.avatarWrapper}>
+            {user.avatar ? (
+              <img src={user.avatar} alt="Avatar" className={styles.avatarImg} />
+            ) : (
+              <div className={styles.avatar}>
+                <span>{user.name.charAt(0).toUpperCase()}</span>
+              </div>
+            )}
           </div>
           <div>
             <h1 className={styles.username}>{user.name}</h1>
             <p className={styles.email}>{user.email}</p>
           </div>
+
+          <button
+            className={styles.editButton}
+            onClick={() => setIsEditing(true)}
+          >
+            <Edit2 size={16} /> Edit Profile
+          </button>
         </div>
 
+        {/* STATS */}
         <div className={styles.statsGrid}>
           <div className={styles.statBox}>
             <div className={styles.statLabel}>
@@ -187,6 +218,48 @@ export default function Profile() {
             )}
         </div>
       </div>
+
+      {/* 🔹 MODAL DE EDIÇÃO */}
+      {isEditing && (
+        <div className={styles.modalBackdrop}>
+          <div className={styles.modal}>
+            <button
+              className={styles.closeButton}
+              onClick={() => setIsEditing(false)}
+            >
+              <X size={20} />
+            </button>
+            <h2>Edit Profile</h2>
+
+            <div className={styles.editForm}>
+              <label>Profile Picture</label>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleAvatarChange}
+              />
+              {tempAvatar && (
+                <img
+                  src={tempAvatar}
+                  alt="Preview"
+                  className={styles.avatarPreview}
+                />
+              )}
+
+              <label>Username</label>
+              <input
+                type="text"
+                value={tempName}
+                onChange={(e) => setTempName(e.target.value)}
+              />
+
+              <button className={styles.saveButton} onClick={handleSave}>
+                Save Changes
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
