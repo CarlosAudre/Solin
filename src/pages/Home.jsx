@@ -1,41 +1,74 @@
-import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { ArrowRight, Sparkles, Loader2 } from "lucide-react";
 import styles from "./Home.module.css";
 import MostReadBooks from "../home/MostReadBooks";
 import TrendingNow from "../home/TrendingNow";
 import Explore from "../home/Explore";
-import { booksMock } from "../mocks/booksMock"; 
+import {
+  getFeaturedBook,
+  getMostReadBooks,
+  getTrendingBooks,
+  getExploreBooks,
+} from "../services/api";
 
 function Home() {
-  const [featuredBook, setFeaturedBook] = useState(null);
-  const [books, setBooks] = useState([]);
-  const [userBooks, setUserBooks] = useState([]);
+  // Queries para buscar dados da API
+  const {
+    data: featuredBook,
+    isLoading: featuredLoading,
+    error: featuredError,
+  } = useQuery({
+    queryKey: ["LordOfTheRings"],
+    queryFn: getFeaturedBook,
+  });
 
-  useEffect(() => {
-    // Livro em destaque (mock)
-    setFeaturedBook({
-      id: 1,
-      title: "The Midnight Library",
-      author: "Matt Haig",
-      description:
-        "Between life and death there is a library, and within that library, the shelves go on forever. Every book provides a chance to try another life you could have lived.",
-      cover_url:
-        "https://images.unsplash.com/photo-1589998059171-988d887df646?auto=format&fit=crop&w=1600&q=80",
-    });
+  const {
+    data: mostReadBooks,
+    isLoading: mostReadLoading,
+  } = useQuery({
+    queryKey: ["mostReadBooks"],
+    queryFn: getMostReadBooks,
+  });
 
-    // Mock de livros
-    setBooks(booksMock);
+  const {
+    data: trendingBooks,
+    isLoading: trendingLoading,
+  } = useQuery({
+    queryKey: ["trendingBooks"],
+    queryFn: getTrendingBooks,
+  });
 
-    // Mock de livros do usuário
-    setUserBooks([
-      { user_id: 1, book_id: 1, is_favorite: true },
-      { user_id: 2, book_id: 1 },
-      { user_id: 3, book_id: 2 },
-    ]);
-  }, []);
+  const {
+    data: exploreBooks,
+    isLoading: exploreLoading,
+  } = useQuery({
+    queryKey: ["exploreBooks"],
+    queryFn: getExploreBooks,
+  });
+
+  // Loading state para o livro em destaque
+  if (featuredLoading) {
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+        <Loader2 size={48} className="animate-spin" style={{ color: '#6b1830' }} />
+      </div>
+    );
+  }
+
+  // Error state para o livro em destaque
+  if (featuredError) {
+    return (
+      <div style={{ padding: '2rem', textAlign: 'center' }}>
+        <p>Erro ao carregar livro em destaque. Tente novamente mais tarde.</p>
+      </div>
+    );
+  }
 
   if (!featuredBook) return null;
+
+  // URL da imagem customizada - substitua pelo caminho da sua imagem
+  const featuredImageUrl = '/images/lotr-cover.jpg';
 
   return (
     <div>
@@ -43,7 +76,7 @@ function Home() {
       <div className={styles.hero}>
         <div
           className={styles.background}
-          style={{ backgroundImage: `url(${featuredBook.cover_url})` }}
+          style={{ backgroundImage: `url(${featuredImageUrl})` }}
         >
           <div className={styles.overlay}></div>
         </div>
@@ -59,16 +92,16 @@ function Home() {
           <p className={styles.description}>{featuredBook.description}</p>
 
           <Link to={`/books/${featuredBook.id}`} className={styles.button}>
-            Ver Detalhes <ArrowRight size={18} />
+            See Details <ArrowRight size={18} />
           </Link>
         </div>
       </div>
 
       {/* Conteúdo principal (centralizado e limitado) */}
       <div className={styles.mainContent}>
-        <MostReadBooks books={books} userBooks={userBooks} />
-        <TrendingNow books={books} userBooks={userBooks} />
-        <Explore books={books} userBooks={userBooks} />
+        <MostReadBooks books={mostReadBooks || []} isLoading={mostReadLoading} />
+        <TrendingNow books={trendingBooks || []} isLoading={trendingLoading} />
+        <Explore books={exploreBooks || []} isLoading={exploreLoading} />
       </div>
     </div>
   );

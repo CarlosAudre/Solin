@@ -1,12 +1,23 @@
-import { Flame, TrendingUp, Zap } from "lucide-react";
+import { Flame, TrendingUp, Loader2 } from "lucide-react";
 import { motion } from "framer-motion";
 import styles from "./TrendingNow.module.css";
 import BookCard from "../books/BookCard";
 
-function TrendingNow({ books = [], userBooks = [] }) {
-    // Exemplo simples: pega os 6 primeiros livros da lista
+function TrendingNow({ books = [], isLoading = false }) {
+    // Loading state
+    if (isLoading) {
+        return (
+            <div className={styles.container}>
+                <div style={{ display: 'flex', justifyContent: 'center', padding: '3rem' }}>
+                    <Loader2 size={32} className="animate-spin" style={{ color: '#6b1830' }} />
+                </div>
+            </div>
+        );
+    }
+
+    // Pega os primeiros 6 livros (já vêm do backend)
     const trendingBooks = books.slice(0, 6);
-    
+
     if (!trendingBooks.length) return null;
 
     return (
@@ -45,9 +56,6 @@ function TrendingNow({ books = [], userBooks = [] }) {
                 {/* Grid de livros */}
                 <div className={styles.grid}>
                     {trendingBooks.map((book, index) => {
-                        const userBook = userBooks.find(
-                            (ub) => ub.book_id === book.id
-                        );
                         return (
                             <motion.div
                                 key={book.id}
@@ -56,7 +64,7 @@ function TrendingNow({ books = [], userBooks = [] }) {
                                 transition={{ delay: index * 0.1, duration: 0.4 }}
                                 whileHover={{ y: -8 }}
                             >
-                                <BookCard book={book} userBook={userBook} />
+                                <BookCard book={book} />
                             </motion.div>
                         );
                     })}

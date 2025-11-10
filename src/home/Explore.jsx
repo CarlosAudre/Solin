@@ -16,7 +16,7 @@ const GENRES = [
   { value: "Biography", label: "Biography"},
 ];
 
-function Explore({ books, userBooks }) {
+function Explore({ books = [], isLoading: propsLoading = false }) {
   const [selectedGenre, setSelectedGenre] = useState("all");
   const [isLoading, setIsLoading] = useState(false);
   const scrollRef = useRef(null);
@@ -99,7 +99,7 @@ function Explore({ books, userBooks }) {
         {/* Books Section */}
         <div className={styles.carouselWrapper}>
           <AnimatePresence mode="wait">
-            {isLoading ? (
+            {(isLoading || propsLoading) ? (
               <motion.div
                 key="loading"
                 initial={{ opacity: 0 }}
@@ -141,9 +141,6 @@ function Explore({ books, userBooks }) {
                 {/* Books */}
                 <div ref={scrollRef} className={styles.booksRow}>
                   {filteredBooks.map((book, index) => {
-                    const userBook = userBooks.find(
-                      (ub) => ub.book_id === book.id
-                    );
                     return (
                       <motion.div
                         key={book.id}
@@ -152,7 +149,7 @@ function Explore({ books, userBooks }) {
                         transition={{ delay: index * 0.05, duration: 0.3 }}
                         className={styles.bookWrapper}
                       >
-                        <BookCard book={book} userBook={userBook} />
+                        <BookCard book={book} />
                       </motion.div>
                     );
                   })}

@@ -1,19 +1,24 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { TrendingUp, Crown, Eye } from "lucide-react";
+import { TrendingUp, Crown, Eye, Loader2 } from "lucide-react";
 import styles from "./MostReadBooks.module.css";
 
-function MostReadBooks({ books = [], userBooks = [] }) {
+function MostReadBooks({ books = [], isLoading = false }) {
+    // Loading state
+    if (isLoading) {
+        return (
+            <div className={styles.container}>
+                <div style={{ display: 'flex', justifyContent: 'center', padding: '3rem' }}>
+                    <Loader2 size={32} className="animate-spin" style={{ color: '#6b1830' }} />
+                </div>
+            </div>
+        );
+    }
+
     if (!books.length) return null;
 
-    const bookStats = books.map((book) => {
-        const interactions = userBooks.filter((ub) => ub.book_id === book.id).length;
-        return { ...book, interactions };
-    });
-
-    const topBooks = bookStats
-        .sort((a, b) => b.interactions - a.interactions)
-        .slice(0, 5);
+    // Pega os primeiros 5 livros (já vêm do backend ordenados por popularidade)
+    const topBooks = books.slice(0, 5);
 
     if (topBooks.length === 0) return null;
 
