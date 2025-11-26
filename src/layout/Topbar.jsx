@@ -1,8 +1,19 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { LogOut } from "lucide-react";
 import styles from "./Topbar.module.css";
 
 export default function Topbar({ usuario }) {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    // Limpa token e dados do usuário
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+
+    // Redireciona para a página de login
+    navigate("/auth", { replace: true });
+  };
+
   return (
     <header className={styles.topbar}>
       {/* Logo */}
@@ -57,7 +68,7 @@ export default function Topbar({ usuario }) {
       {/* Usuário */}
       <div className={styles.userSection}>
         <span className={styles.username}>{usuario?.nome || "User"}</span>
-        <button className={styles.logoutBtn}>
+        <button className={styles.logoutBtn} onClick={handleLogout}>
           <LogOut size={18} />
         </button>
       </div>
