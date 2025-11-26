@@ -15,8 +15,8 @@ function TrendingNow({ books = [], isLoading = false }) {
         );
     }
 
-    // Pega os primeiros 6 livros (já vêm do backend)
-    const trendingBooks = books.slice(0, 6);
+    // Pega os primeiros 5 livros (já vêm do backend)
+    const trendingBooks = books.slice(0, 5);
 
     if (!trendingBooks.length) return null;
 

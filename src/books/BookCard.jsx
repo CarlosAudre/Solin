@@ -1,26 +1,27 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Eye, Star } from "lucide-react";
+import BookCoverImage from "../components/BookCoverImage";
 import styles from "./BookCard.module.css";
 
 function BookCard({ book, userBook, compact = false }) {
     const imageUrl =
-        book.cover_url || `https://source.unsplash.com/400x600/?book,${book.genre}`;
-    
+        book.cover_url || `https://source.unsplash.com/400x600/?book,${book.genre || 'literature'}`;
+
     return (
         <motion.div
             whileHover={{ y: -12, scale: 1.02 }}
             transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
             className={styles.cardWrapper}
         >
-            <Link to={`/books/${book.id}`} className={styles.link}>
+            <Link to={`/books/${encodeURIComponent(book.id)}`} className={styles.link}>
                 <div className={styles.coverContainer}>
                     {/* Book spine effect */}
                     <div className={styles.spine} />
-                    
+
                     {/* Cover image */}
                     <div className={styles.imageWrapper}>
-                        <img
+                        <BookCoverImage
                             src={imageUrl}
                             alt={book.title}
                             className={styles.coverImage}

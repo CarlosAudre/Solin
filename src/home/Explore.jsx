@@ -1,25 +1,27 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useMemo } from "react";
 import { ChevronLeft, ChevronRight, Loader2, Compass, Sparkles } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import BookCard from "../books/BookCard";
 import styles from "./Explore.module.css";
 
-const GENRES = [
-  { value: "all", label: "All Books"},
-  { value: "Fiction", label: "Fiction"},
-  { value: "Fantasy", label: "Fantasy"},
-  { value: "Mystery", label: "Mystery"},
-  { value: "Thriller", label: "Thriller"},
-  { value: "Romance", label: "Romance"},
-  { value: "Science Fiction", label: "Sci-Fi"},
-  { value: "Historical", label: "Historical"},
-  { value: "Biography", label: "Biography"},
-];
-
 function Explore({ books = [], isLoading: propsLoading = false }) {
   const [selectedGenre, setSelectedGenre] = useState("all");
   const [isLoading, setIsLoading] = useState(false);
   const scrollRef = useRef(null);
+
+  // Extrai gêneros únicos dos livros (limitado a 8)
+  const GENRES = useMemo(() => {
+    const uniqueGenres = [...new Set(books.map(book => book.genre).filter(Boolean))];
+    const limitedGenres = uniqueGenres.slice(0, 6);
+
+    return [
+      { value: "all", label: "All Books" },
+      ...limitedGenres.map(genre => ({
+        value: genre,
+        label: genre
+      }))
+    ];
+  }, [books]);
 
   const handleGenreChange = (genre) => {
     if (genre === selectedGenre) return;

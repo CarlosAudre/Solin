@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { TrendingUp, Crown, Eye, Loader2 } from "lucide-react";
+import BookCoverImage from "../components/BookCoverImage";
 import styles from "./MostReadBooks.module.css";
 
 function MostReadBooks({ books = [], isLoading = false }) {
@@ -66,7 +67,7 @@ function MostReadBooks({ books = [], isLoading = false }) {
                     {topBooks.map((book, index) => {
                         const position = index + 1;
                         const imageUrl =
-                            book.cover_url || `https://source.unsplash.com/400x600/?book,${book.genre}`;
+                            book.cover_url || `https://source.unsplash.com/400x600/?book,${book.genre || 'literature'}`;
 
                         return (
                             <motion.div
@@ -77,7 +78,7 @@ function MostReadBooks({ books = [], isLoading = false }) {
                                 whileHover={{ y: -12, scale: 1.02 }}
                                 className={styles.bookCardWrapper}
                             >
-                                <Link to={`/books/${book.id}`} className={styles.bookLink}>
+                                <Link to={`/books/${encodeURIComponent(book.id)}`} className={styles.bookLink}>
                                     {/* Medalha de posição */}
                                     <div className={`${styles.positionBadge} ${getPositionColor(position)}`}>
                                         {position === 1 ? <Crown size={18} /> : position}
@@ -90,7 +91,7 @@ function MostReadBooks({ books = [], isLoading = false }) {
 
                                         {/* Cover image */}
                                         <div className={styles.imageWrapper}>
-                                            <img
+                                            <BookCoverImage
                                                 src={imageUrl}
                                                 alt={book.title}
                                                 className={styles.coverImage}

@@ -48,8 +48,14 @@
 
 .buttonWrapper {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: center;
   margin-top: 0.75rem;
+}
+
+.charCount {
+  font-size: 0.875rem;
+  color: #6b7280;
 }
 
 .postButton {
@@ -94,22 +100,34 @@
 }
 
 .avatar {
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
   background: #6b1830;
   color: white;
   font-weight: 600;
+  font-size: 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.commentContent {
+  flex: 1;
+}
+
+.commentHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
 }
 
 .username {
-  margin-top: 0.3rem;
-  margin-bottom: 0.1rem;
   font-weight: 700;
   color: #111827;
+  font-size: 0.95rem;
 }
 
 .date {
@@ -119,7 +137,47 @@
 
 .content {
   color: #374151;
-  margin-top: 4px;
+  line-height: 1.5;
+  margin-top: 0.25rem;
+}
+
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 2rem 0;
+  color: #6b7280;
+}
+
+.loadMoreContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.loadMoreButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1.5rem;
+  background: white;
+  border: 2px solid #6b1830;
+  color: #6b1830;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.loadMoreButton:hover:not(:disabled) {
+  background: #6b1830;
+  color: white;
+}
+
+.loadMoreButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .emptyState {

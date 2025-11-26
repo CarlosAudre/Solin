@@ -91,7 +91,7 @@ function Home() {
           <p className={styles.author}>por {featuredBook.author}</p>
           <p className={styles.description}>{featuredBook.description}</p>
 
-          <Link to={`/books/${featuredBook.id}`} className={styles.button}>
+          <Link to={`/books/${encodeURIComponent(featuredBook.id)}`} className={styles.button}>
             See Details <ArrowRight size={18} />
           </Link>
         </div>

@@ -1,9 +1,18 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { LogOut } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { getCurrentUser } from "../services/api";
 import styles from "./Topbar.module.css";
 
-export default function Topbar({ usuario }) {
+export default function Topbar() {
   const navigate = useNavigate();
+
+  // Busca dados do usuário atual
+  const { data: user } = useQuery({
+    queryKey: ["currentUser"],
+    queryFn: getCurrentUser,
+    retry: false,
+  });
 
   const handleLogout = () => {
     // Limpa token e dados do usuário
@@ -67,7 +76,7 @@ export default function Topbar({ usuario }) {
 
       {/* Usuário */}
       <div className={styles.userSection}>
-        <span className={styles.username}>{usuario?.nome || "User"}</span>
+        <span className={styles.username}>{user?.username || "User"}</span>
         <button className={styles.logoutBtn} onClick={handleLogout}>
           <LogOut size={18} />
         </button>

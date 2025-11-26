@@ -1,48 +1,86 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./Profile.module.css";
-import { Heart, BookOpen, Calendar, BookMarked } from "lucide-react";
-import { booksMock } from "../mocks/booksMock";
-import { useNavigate } from "react-router-dom"; // 👈 importa o hook de navegação
+import { Heart, BookOpen, Calendar, BookMarked, Loader2 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { useQuery, useQueries } from "@tanstack/react-query";
+import { getCurrentUser, getReadingList, getFavorites } from "../services/api";
+import api from "../services/api";
+import ProfileBookCard from "../books/ProfileBookCard";
+import { motion } from "framer-motion";
 
 export default function Profile() {
-  const navigate = useNavigate(); // 👈 cria o objeto de navegação
-
-  const user = {
-    name: "carlosaudre180",
-    email: "carlosaudre180@gmail.com",
-  };
-
-  // 🔹 Simula o status de leitura de alguns livros
-  const userBooks = [
-    { book_id: 1, status: "completed", is_favorite: true },
-    { book_id: 2, status: "currently_reading", is_favorite: false },
-    { book_id: 3, status: "plan_to_read", is_favorite: false },
-    { book_id: 4, status: "favorites", is_favorite: true },
-  ];
-
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("completed");
 
-  // 🔹 Junta os dados do usuário com os livros do mock
-  const mergeBooks = (filterFn) =>
-    userBooks
-      .filter(filterFn)
-      .map((ub) => ({
-        ...booksMock.find((b) => b.id === ub.book_id),
-        userBook: ub,
-      }))
-      .filter((b) => b.id);
+  // Busca dados do usuário
+  const { data: user, isLoading: userLoading } = useQuery({
+    queryKey: ["currentUser"],
+    queryFn: getCurrentUser,
+  });
 
-  const favoriteBooks = mergeBooks((ub) => ub.is_favorite);
-  const currentlyReading = mergeBooks((ub) => ub.status === "currently_reading");
-  const planToRead = mergeBooks((ub) => ub.status === "plan_to_read");
-  const completed = mergeBooks((ub) => ub.status === "completed");
+  // Busca lista de leitura
+  const { data: readingList = [], isLoading: readingListLoading } = useQuery({
+    queryKey: ["readingList"],
+    queryFn: () => getReadingList(),
+  });
 
-  // 🔹 Abre a página de detalhes do livro
-  const handleBookClick = (bookId) => {
-    navigate(`/books/${bookId}`); // 👈 muda para a rota desejada
-  };
+  // Busca favoritos
+  const { data: favoritesList = [], isLoading: favoritesLoading } = useQuery({
+    queryKey: ["favorites"],
+    queryFn: getFavorites,
+  });
+
+  // Busca detalhes de todos os livros da reading list
+  const readingListBookQueries = useQueries({
+    queries: readingList.map((item) => ({
+      queryKey: ["book", item.book_key],
+      queryFn: () => api.get(`/books/${item.book_key}`).then(res => res.data),
+      enabled: !!item.book_key,
+    })),
+  });
+
+  // Busca detalhes de todos os livros favoritos
+  const favoritesBookQueries = useQueries({
+    queries: favoritesList.map((item) => ({
+      queryKey: ["book", item.book_key],
+      queryFn: () => api.get(`/books/${item.book_key}`).then(res => res.data),
+      enabled: !!item.book_key,
+    })),
+  });
+
+  // Combina os dados do backend com os detalhes dos livros
+  const readingListWithDetails = readingList.map((item, index) => ({
+    ...item,
+    bookDetails: readingListBookQueries[index]?.data,
+  })).filter(item => item.bookDetails);
+
+  const favoritesWithDetails = favoritesList.map((item, index) => ({
+    ...item,
+    bookDetails: favoritesBookQueries[index]?.data,
+  })).filter(item => item.bookDetails);
+
+  // Processa os livros por status
+  const currentlyReading = readingListWithDetails.filter((book) => book.status === "reading");
+  const planToRead = readingListWithDetails.filter((book) => book.status === "want_to_read");
+  const completed = readingListWithDetails.filter((book) => book.status === "read");
+  const favoriteBooks = favoritesWithDetails;
+
+  // Verifica se ainda está carregando os detalhes dos livros
+  const isLoadingBookDetails = readingListBookQueries.some(q => q.isLoading) ||
+                                favoritesBookQueries.some(q => q.isLoading);
+
+  const isLoading = userLoading || readingListLoading || favoritesLoading || isLoadingBookDetails;
 
   const renderBooks = (list, icon, emptyTitle, emptyText) => {
+    if (isLoading) {
+      return (
+        <div className={styles.loadingContainer}>
+          <Loader2 size={48} className="animate-spin" style={{ color: '#6b1830' }} />
+          <p>Loading books...</p>
+        </div>
+      );
+    }
+
     if (list.length === 0) {
       const Icon = icon;
       return (
@@ -56,26 +94,32 @@ export default function Profile() {
 
     return (
       <div className={styles.booksGrid}>
-        {list.map((book) => (
-          <div
-            key={book.id}
-            className={styles.bookCard}
-            onClick={() => handleBookClick(book.id)}
-          >
-            <img
-              src={book.cover_url}
-              alt={book.title}
-              className={styles.bookCover}
-            />
-            <div className={styles.bookInfo}>
-              <h4 className={styles.bookTitle}>{book.title}</h4>
-              <p className={styles.bookAuthor}>{book.author}</p>
-            </div>
-          </div>
-        ))}
+        {list.map((item, index) => {
+          const bookDetails = item.bookDetails;
+          if (!bookDetails) return null;
+
+          return (
+            <motion.div
+              key={item.book_key}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.05, duration: 0.4 }}
+            >
+              <ProfileBookCard book={bookDetails} />
+            </motion.div>
+          );
+        })}
       </div>
     );
   };
+
+  if (userLoading) {
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+        <Loader2 size={48} className="animate-spin" style={{ color: '#6b1830' }} />
+      </div>
+    );
+  }
 
   return (
     <div className={styles.page}>
@@ -83,11 +127,11 @@ export default function Profile() {
       <div className={styles.header}>
         <div className={styles.headerContent}>
           <div className={styles.avatar}>
-            <span>{user.name.charAt(0).toUpperCase()}</span>
+            <span>{user?.username?.charAt(0).toUpperCase() || 'U'}</span>
           </div>
-          <div>
-            <h1 className={styles.username}>{user.name}</h1>
-            <p className={styles.email}>{user.email}</p>
+          <div className={styles.userInfo}>
+            <h1 className={styles.username}>{user?.username || 'User'}</h1>
+            <p className={styles.email}>{user?.email || ''}</p>
           </div>
         </div>
 

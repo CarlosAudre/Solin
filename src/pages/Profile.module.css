@@ -10,41 +10,51 @@
 .header {
   background: linear-gradient(135deg, #5a0f25, #701b33);
   color: white;
-  padding: 4rem 0;
+  padding: 3rem 0 5rem 0;
+  position: relative;
 }
 
 .headerContent {
   max-width: 1200px;
-  height: 200px;
   margin: 0 auto;
   padding: 0 2rem;
   display: flex;
   align-items: center;
-  margin-bottom: -40px;
+  gap: 2rem;
 }
 
 .avatar {
-  width: 80px;
-  height: 80px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.15);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2rem;
+  font-size: 3rem;
   font-weight: bold;
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  flex-shrink: 0;
+}
+
+.userInfo {
+  flex: 1;
 }
 
 .username {
-  margin-left: 15px;
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: 700;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .email {
-  margin-left: 15px;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 /* STATS */
@@ -87,7 +97,7 @@
 
 /* CONTENT */
 .content {
-  width: 800px;
+  width: 80%;
   max-width: 1200px;
   margin: 0 auto;
   padding: 3rem 2rem;
@@ -127,60 +137,38 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
-/* GRID DE LIVROS — estilo igual ao Trending Now */
+/* GRID DE LIVROS — compacto */
 .booksGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 1.75rem;
   margin-top: 1rem;
-  justify-items: start;
+  max-width: 100%;
 }
 
-.bookCard {
+/* Responsividade */
+@media (max-width: 768px) {
+  .booksGrid {
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 1.25rem;
+  }
+}
+
+/* LOADING STATE */
+.loadingContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* 🔹 Centraliza título e autor com a imagem */
-  background: none;
-  box-shadow: none;
-  border-radius: 0.75rem;
-  transition: transform 0.2s ease;
-  width: 150px;
-  cursor: pointer;
+  justify-content: center;
+  padding: 5rem 1rem;
+  gap: 1rem;
 }
 
-.bookCard:hover {
-  transform: translateY(-4px);
+.loadingContainer p {
+  color: #6b1830;
+  font-size: 1.125rem;
+  font-weight: 500;
 }
-
-.bookCover {
-  width: 200px;
-  height: 320px;
-  object-fit: cover;
-  border-radius: 0.75rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.bookInfo {
-  margin-top: 0.6rem;
-  text-align: center;
-  /* 🔹 Centraliza texto horizontalmente */
-}
-
-.bookTitle {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: #1e1e1e;
-  margin-bottom: 0.2rem;
-}
-
-.bookAuthor {
-  font-size: 0.8rem;
-  color: #7a6a6a;
-}
-
-
-
 
 /* ABA DE CONTEÚDO */
 .tabContent {
