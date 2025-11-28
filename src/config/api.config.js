@@ -19,6 +19,7 @@ export const API_ENDPOINTS = {
   explore: '/books/explore',
   search: '/books/search',
   bookDetail: (id) => `/books/${id}`,
+  bookDetailFrontend: (id) => `/books/${id}`,
 
   // User Books (Reading List)
   readingList: '/user-books/reading-list',

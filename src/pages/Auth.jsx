@@ -11,6 +11,7 @@ function Auth() {
     confirmPassword: ''
   });
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -20,11 +21,13 @@ function Auth() {
       [e.target.name]: e.target.value
     });
     setError('');
+    setSuccess('');
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setSuccess('');
     setLoading(true);
 
     try {
@@ -58,9 +61,26 @@ function Auth() {
         navigate('/');
       } else {
         // Auto login after registration
-        setIsLogin(true);
-        setFormData({ ...formData, username: '', confirmPassword: '' });
-        setError('Account created! Please login.');
+        // Primeiro, fazer login automático
+        const loginResponse = await fetch(`${import.meta.env.VITE_API_BASE_URL}/auth/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: formData.email, password: formData.password })
+        });
+
+        const loginData = await loginResponse.json();
+
+        if (loginResponse.ok && loginData.access_token) {
+          // Save token e redirecionar
+          localStorage.setItem('token', loginData.access_token);
+          localStorage.setItem('user', JSON.stringify({ email: formData.email, username: formData.username }));
+          navigate('/');
+        } else {
+          // Caso o login automático falhe, mostrar mensagem de sucesso
+          setIsLogin(true);
+          setFormData({ email: formData.email, username: '', password: '', confirmPassword: '' });
+          setSuccess('Account created successfully! Please login.');
+        }
       }
     } catch (err) {
       setError(err.message);
@@ -72,6 +92,7 @@ function Auth() {
   const toggleMode = () => {
     setIsLogin(!isLogin);
     setError('');
+    setSuccess('');
     setFormData({
       email: '',
       username: '',
@@ -144,6 +165,16 @@ function Auth() {
                 </div>
               )}
 
+              {success && (
+                <div className={styles.successMessage}>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                    <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" strokeWidth="2"/>
+                    <path d="M8 12L11 15L16 9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                  {success}
+                </div>
+              )}
+
               <div className={styles.inputGroup}>
                 <label htmlFor="email" className={styles.label}>Email</label>
                 <input
@@ -167,7 +198,7 @@ function Auth() {
                     name="username"
                     value={formData.username}
                     onChange={handleChange}
-                    placeholder="bookworm"
+                    placeholder="Fulano"
                     className={styles.input}
                     required
                     minLength={3}

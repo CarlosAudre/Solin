@@ -28,7 +28,11 @@ function BookDetail() {
 
   const { data: book, isLoading, error } = useQuery({
     queryKey: ["book", decodedId],
-    queryFn: () => api.get(`/books/${decodedId}`).then(res => res.data)
+    queryFn: () => api.get(`/books/${encodeURIComponent(decodedId)}`).then(res => res.data),
+    retry: 1,
+    onError: (err) => {
+      console.error("Error fetching book:", err);
+    }
   });
 
   // Busca favoritos do usuário
@@ -114,15 +118,59 @@ function BookDetail() {
     );
   }
 
-  if (error || !book) {
+  if (error) {
+    console.error("Book fetch error:", error);
     return (
-      <div style={{ padding: '2rem', textAlign: 'center' }}>
-        <p>Erro ao carregar livro. Tente novamente mais tarde.</p>
-        <button onClick={() => navigate(-1)} style={{ marginTop: '1rem' }}>
-          Voltar
+      <div style={{ padding: '2rem', textAlign: 'center', minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+        <h2 style={{ color: '#6b1830', marginBottom: '1rem' }}>Error Loading Book</h2>
+        <p style={{ marginBottom: '1rem' }}>
+          {error.response?.data?.detail || error.message || 'Failed to load book details. Please try again later.'}
+        </p>
+        <p style={{ fontSize: '0.9rem', color: '#666', marginBottom: '1.5rem' }}>Book ID: {decodedId}</p>
+        <button
+          onClick={() => navigate(-1)}
+          style={{
+            padding: '0.75rem 1.5rem',
+            background: '#6b1830',
+            color: 'white',
+            border: 'none',
+            borderRadius: '8px',
+            cursor: 'pointer',
+            fontSize: '1rem'
+          }}
+        >
+          ← Go Back
         </button>
       </div>
     );
+  }
+
+  if (!book && !isLoading) {
+    return (
+      <div style={{ padding: '2rem', textAlign: 'center', minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+        <h2 style={{ color: '#6b1830', marginBottom: '1rem' }}>Book Not Found</h2>
+        <p style={{ marginBottom: '1.5rem' }}>The book you're looking for doesn't exist.</p>
+        <button
+          onClick={() => navigate(-1)}
+          style={{
+            padding: '0.75rem 1.5rem',
+            background: '#6b1830',
+            color: 'white',
+            border: 'none',
+            borderRadius: '8px',
+            cursor: 'pointer',
+            fontSize: '1rem'
+          }}
+        >
+          ← Go Back
+        </button>
+      </div>
+    );
+  }
+
+  // Guard clause - não renderizar se não houver livro
+  if (!book) {
+    return null;
   }
 
   const handleToggleFavorite = () => {
